@@ -1,0 +1,306 @@
+\documentclass{article}
+
+\usepackage{arxiv}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}		% Can be removed after putting your text content
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{doi}
+
+\title{
+	A feasibility study of upper-layer reservoir operation for hydro power generation in Japanese dams
+}
+
+%\date{September 9, 1985}	% Here you can change the date presented in the paper title
+%\date{} 					% Or removing it
+
+\author{ Tristan \\
+	Kobe University\\
+	\texttt{tristan@people.kobe-u.ac.jp} \\
+	\And
+	Yoshimi \\
+	Kobe University\\
+	\texttt{yoshimi@kobe} \\
+	\And
+	Rousslan \\
+	Kobe University\\
+	\texttt{rousslan@kobe} \\
+	\And
+	Victor \\
+	CNES\\
+	\texttt{victor@cnes} \\	
+	\And
+	Takiguchi \\
+	Kobe University\\
+	\texttt{Takiguchi@kobe} \\	
+	\And
+	Oishi \\
+	RIKEN\\
+	\texttt{oishi@riken} \\	
+}
+
+% Uncomment to remove the date
+\date{}
+
+% Uncomment to override  the `A preprint' in the header
+%\renewcommand{\headeright}{Technical Report}
+%\renewcommand{\undertitle}{Technical Report}
+%\renewcommand{\shorttitle}{\textit{arXiv} Template}
+\renewcommand{\shorttitle}{ }
+
+%%% Add PDF metadata to help others organize their library
+%%% Once the PDF is generated, you can check the metadata with
+%%% $ pdfinfo template.pdf
+\hypersetup{
+pdftitle={A template for the arxiv style},
+pdfsubject={q-bio.NC, q-bio.QM},
+pdfauthor={David S.~Hippocampus, Elias D.~Striatum},
+pdfkeywords={First keyword, Second keyword, More},
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+% Optimal dam management needs good forecast of futur income
+
+% Two main sources of uncertainty 
+
+% Traditionally, the uncertainty has lead to conservative policies
+Traditionally, the uncertainty in reservoir inflow forecast
+have lead dam operators to adopt conservative operation strategies.
+However two factors come to challenge this status quo:
+First, as both fossile fuel and atomic plant receive increased criticism for
+social and environmental xxx, 
+
+% However two factors come to challenge this status quo:
+
+% 1 As fire and atomic sources goes off, the value of low-carbon non-intermitent energy increases
+
+% 2 As climate modeling and forecast technologies keep improving
+
+% The risk and merit trade off may tilt the balance towards adopting more optimized dam operation policies.  
+
+% This work aims to lay out the foundations for such proposal.
+
+% To do so, we have assembled a dataset, proposed a conceptual framework, and analyze existing models.
+
+% The goal is to quantify the impact of weather and hydrological forecast accuracies on hydro-power generation of Japanese national dams.
+
+\end{abstract}
+
+% keywords can be removed
+
+\keywords{Dam Reservoir Operation \and Hydro Power Generation \and Discharge Forecast \and Reinforcement Learning \and Machine Learning}
+
+\section{Introduction}
+\label{sec:Introduction}
+
+% 
+Japanese power generation situation.
+
+% 
+Summary of contributions: 
+
+\begin{itemize}
+	\item Data operational
+	\item Operational models for reservoir input flow
+	\item Methodolody: Vertical integration.
+	\item Open-source everything with easy-to-use tutorials for researchers to join.
+\end{itemize}
+
+Limitations
+
+\begin{itemize}
+	\item No multi-purpose
+	\item No multi-dam
+\end{itemize}
+
+Nevertheless, we hope it's useful.
+
+
+\section{Related Work}
+\label{sec:Related Work}
+
+Dam operation.
+Discharge prediction.
+
+\section{Methodolody}
+\label{sec:Methodolody}
+
+Show Figure.
+
+\subsection{Overview}
+\label{sec:Overview}
+
+\subsection{Meteorological model}
+\label{sec:Meteorological model}
+
+\subsection{Hydrological Model}
+\label{Hydrological Model}
+
+\subsection{Dam Model}
+\label{Dam Model}
+
+\subsection{Grid Response}
+\label{Grid Response}
+
+The grid response model defines the reward $r$ obtained for a given power production $P$ at a given time $t$: 
+
+$$ r = f(P, t)$$
+
+This reward can be though of as a profit in a free-market economy, and is the sum of two terms:
+
+$$r = r_n + r_p$$
+
+The positive quantifies the benefit of energy produced.
+Currently, we use $f(x)=x$, considering constant value over time of the generated power.
+However, hydro's value lies in its non-intermittence to supplement intermittent sources.
+It would be interested to couple this with actual demand response simulations in the future.
+
+The negative price quantifies the cost of a dam failure.
+We considered this price to be the sum over 
+This means that the negative impact of a single dam failure over the whole period of activity 
+would outweight the benefits of full power production of the whole dam operation.
+
+\subsection{Dam Operation Model}
+\label{sec: Dam Operation Model}
+
+
+
+\section{Proposed Dataset}
+\label{sec:Proposed Dataset}
+
+
+\section{Optimal Dam Operation}
+\label{sec:Hydrological Uncertainty}
+
+We start by optimizing the dam without any uncertainty.
+
+\subsection{Baseline}
+\label{sec:Dam Operation baseline}
+
+\subsection{Optimal Operator}
+\label{sec:Optimal Operator}
+
+\subsection{Operation Under Uncertainty}
+\label{sec:Operation Under Uncertainty}
+
+\subsection{Experiment}
+\label{sec:Hydrological Uncertainty}
+
+ - Answers the following question:
+
+1. What is the forecast horizon needed in order to keep the dam from overflowing?
+-> Show as input distribution.
+
+2. Impact of state design on RL baseline.
+
+3. Show the ideal model is brittle. How?
+
+\section{Hydrological Uncertainty}
+\label{sec:Hydrological Uncertainty}
+
+In this section, we use assimilated data, no forecast.
+
+\subsection{Hydrological Models}
+\label{sec:Hydrological Models}
+
+Use Camaflood, conceptual rainfall runoff, linear, non-linear and deep machine learning models.
+
+\subsection{Experiments}
+\label{sec:Hydrological Experiments}
+
+\subsubsection{Discharge prediction}
+
+Show accuracy of different models.
+
+\subsubsection{Dam operation}
+
+Show reward of different models.
+
+\begin{table}
+	\caption{Model accuracy}
+	\centering
+	\begin{tabular}{lll}
+		\toprule
+		\multicolumn{2}{c}{Part}                   \\
+		\cmidrule(r){1-2}
+		Name     & Description     & Size ($\mu$m) \\
+		\midrule
+		Dendrite & Input terminal  & $\sim$100     \\
+		Axon     & Output terminal & $\sim$10      \\
+		Soma     & Cell body       & up to $10^6$  \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:table}
+\end{table}
+
+\section{Meteorological Uncertainty}
+\label{sec:Meteorological Uncertainty}
+
+\subsection{Meteo Data}
+\label{sec:Meteo Data}
+
+\subsection{Experiments}
+\label{sec:Meteo Experiments}
+
+Use different data source.
+
+
+\subsection{Meteorological Uncertainty}
+
+\section{Limitations}
+
+\begin{itemize}
+	\item No multi-purpose
+	\item No multi-dam
+ 	\item No explicit evaporation modeling
+	\item Heuristic dimensioning.
+	\item No river and snow gauge.  
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:Conclusion}
+
+Conclusion
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
+
+
+%%% Uncomment this section and comment out the \bibliography{references} line above to use inline references.
+% \begin{thebibliography}{1}
+
+% 	\bibitem{kour2014real}
+% 	George Kour and Raid Saabne.
+% 	\newblock Real-time segmentation of on-line handwritten arabic script.
+% 	\newblock In {\em Frontiers in Handwriting Recognition (ICFHR), 2014 14th
+% 			International Conference on}, pages 417--422. IEEE, 2014.
+
+% 	\bibitem{kour2014fast}
+% 	George Kour and Raid Saabne.
+% 	\newblock Fast classification of handwritten on-line arabic characters.
+% 	\newblock In {\em Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
+% 			International Conference of}, pages 312--318. IEEE, 2014.
+
+% 	\bibitem{hadash2018estimate}
+% 	Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
+% 	Jacovi.
+% 	\newblock Estimate and replace: A novel approach to integrating deep neural
+% 	networks with existing applications.
+% 	\newblock {\em arXiv preprint arXiv:1804.09028}, 2018.
+
+% \end{thebibliography}
+
+
+\end{document}
