@@ -18,7 +18,7 @@
 \title{
 	% An investigation into
 	On the feasibility of leveraging upper storage zones
-        of Japanese public dam reservoirs for hydro-power generation
+  for hydro-power generation in Japanese public dams operation
 }
 
 %\date{September 9, 1985}	% Here you can change the date presented in the paper title
@@ -38,15 +38,15 @@
 	\And
 	Victor \\
 	CNES\\
-	\texttt{victor@cnes} \\	
+	\texttt{victor@cnes} \\
 	\And
 	Takiguchi \\
 	Kobe University\\
-	\texttt{Takiguchi@kobe} \\	
+	\texttt{Takiguchi@kobe} \\
 	\And
 	Oishi \\
 	RIKEN\\
-	\texttt{oishi@riken} \\	
+	\texttt{oishi@riken} \\
 }
 
 % Uncomment to remove the date
@@ -73,42 +73,47 @@ pdfkeywords={First keyword, Second keyword, More},
 
 \begin{abstract}
 
-% Optimal dam management needs good forecast of futur income 
+% Optimal dam management needs good forecast of future income
 Dam operation is a problem of control under uncertainty,
-as optimal policies are functions of 
-noisy forecasts of river discharges incoming to dam reservoirs.
-% Two main sources of uncertainty 
+in which an optimal operation policy is sought for so as to maximize
+a reward function given uncertain forecasts of river discharges flowing into the dam reservoir.
+%as optimal policies are functions of
+%noisy forecasts of river discharges incoming to dam reservoirs.
+% Two main sources of uncertainty
 The uncertainty in discharge forecast can be attributed to two main factors:
 Uncertainty in atmospheric (mostly precipitation) forecasts,
-and in hydrological (mostly evaporation and runoff) modeling.
+and in hydrological (interception, evaporation and runoff) modeling.
 % Traditionally, the uncertainty has lead to conservative policies
 High levels of uncertainty and abundant alternative sources of power generation
 have lead Japanese public dam operators to adopt conservative operation strategies
 so as to minimize the risk of dam failures.
 However two factors may come to challenge this status quo:
 % 1 As fire and atomic sources goes off, the value of low-carbon non-intermitent energy increases
-%First, as social and environmental pressures threaten the long term viability of fossile fuel 
+%First, as social and environmental pressures threaten the long term viability of fossile fuel
 %and atomic plant receive increased criticism for social and environmental reasons.
-First, social and environmental pressures on fossil fuel and nuclear energy production 
-are foreseen to increase the value of hydrological power generation. 
+First, social and environmental pressures on fossil fuel and nuclear energy production
+are foreseen to increase the value of hydrological power generation.
 % 2 As climate modeling and forecast technologies keep improving
 Second, advances in both environmental modeling and statistical inference models
 are foreseen to increase the accuracy of forecast.
-Combined, these two factors may challenge the current risk-benefit analysis 
-of dam operation towards adopting policies more focused on energy production.
-This work aims to lay out the foundations for a large scale study 
+Combined, these two factors may challenge the current risk-benefit analysis
+of dam operation towards policies more focused on energy production.
+This work aims to lay out the foundations for a large scale study
 on the feasibility of implementing such policies.
 We do so by providing the following three contributions.
-First we propose a conceptual framework to XXX.
-Second, we propose a dataset to benchmark the accuracy 
-of different atmospheric and hydrological models on this problem.
-Finally we investigate the impact of
-%We have open-sources all data and code, 
+First we release a dataset of Japanese public dam allowing to benchmark the accuracy of
+various hydrological models coupled with different atmospheric forecasts.
+Second, we propose a conceptual framework to analyse the errors in discharge forecast
+introduced by atmospheric and hydrological models, as well as their impact on dam operation.
+Finally we analyse a variety of existing hydrological and atmospheric forecasts,
+and provide insight regarding the key challenges to implement hydro-power optimized
+dam operation procedure.
+%We have open-sources all data and code,
 %and provide interactive tutorials for data scientists, hydrologist or climate specialist to easily join in on our effort.
-%assembled a dataset, proposed a conceptual framework, 
+%assembled a dataset, proposed a conceptual framework,
 %and analyze the accuracy  models.
-%The goal is to quantify the impact of weather and hydrological 
-%forecast accuracies on hydro-power generation of Japanese national dams. 
+%The goal is to quantify the impact of weather and hydrological
+%forecast accuracies on hydro-power generation of Japanese national dams.
 % Keyword: integrated approach.
 
 \end{abstract}
@@ -121,23 +126,23 @@ Finally we investigate the impact of
 \label{sec:Introduction}
 
 %% Many mountains and a lot of rain=good for hydro power.
-A mountainous topology and a heavy rain climate lend Japan a high potential for hydro power generation \cite{}. 
+A mountainous topology and a heavy rain climate lend Japan a high potential for hydro power generation \cite{}.
 % Historical perspective
 Historically\cite{}, Japan has extensively relied on its hydrological power generation up until the second world war.
-As the period of great economic development called for increased energy consumption, 
+As the period of great economic development called for increased energy consumption,
 fossil fuel plants have come to fill this demand for their ability to quickly and efficiently provide for this sudden jump in demand.
-Later, the oil shock has seen Japan develop nuclear power generation for strategical reasons, to ensure its energy independency. 
+Later, the oil shock has seen Japan develop nuclear power generation for strategical reasons, to ensure its energy independency.
 
 % Current situation
 %% Nuclear and fossil fuel contested
 Nuclear incidents and international pledges to reduce carbon emissions have come to threaten the long term viability of the current energy mix.
 
 %% Renewable energies are intermittent
-As solar and wind power generation is being pushed forward, 
-they are widely considered as inufficient in their own due to their intermittent nature. \cite{}
+As solar and wind power generation is being pushed forward,
+they are widely considered as insufficient in their own due to their intermittent nature. \cite{}
 
-%% Variety of hydro provide low-carbon, non-itermittent, both base load and demand response.
-Hydro is low-carbon and a variety of hydro power plant can bring both base load and demand response. 
+%% Variety of hydro provide low-carbon, non-intermittent, both base load and demand response.
+Hydro is low-carbon and a variety of hydro power plant can bring both base load and demand response.
 
 %% For all its benefits, voices are calling for the optimization of Japanese dam operations.
 For all its benefits, voices are calling for the optimization of Japanese dam operations. \cite{}
@@ -145,67 +150,103 @@ For all its benefits, voices are calling for the optimization of Japanese dam op
 
 % Fundamental problem:
 The fundamental problem of dam operation is that of two opposing objectives\cite{}:
-On the one hand energy production (as well as irrigation) 
-benefits from keeping high levels of water into the reservoir. 
-Indeed the higher water levels are, the more potential energy it stores, 
-thus the more energy it can create for a given volume of output water discharge. 
+On the one hand energy production (as well as irrigation)
+benefits from keeping high levels of water into the reservoir.
+Indeed the higher water levels are, the more potential energy it stores,
+thus the more energy it can create for a given volume of output water discharge.
 On the other hand, flood control benefits from low level of reservoir filling,
-as lower water levels enable to hold more incoming water, 
-thus better buffering high discharge flows to prevent potential floods. 
+as lower water levels enable to hold more incoming water,
+thus better buffering high discharge flows to prevent potential floods.
 An optimal operation policy is one that maximizes energy production while minimizing the risk of flooding.
-However, keeping appropriate levels in the reservoir at each time requires knowledge 
+However, keeping appropriate levels in the reservoir at each time requires knowledge
 of the amount of water flowing into the reservoir ahead of time, i.e. accurate river discharge forecast.
-
 % In particular dam failures.
 In particular, optimizing dam operation for energy production comes with a risk of dam failures:
-Dam failure happens when the the dam reaches its full capacity due to large volume 
+Dam failure happens when the the dam reaches its full capacity due to large volume
 of water flowing into the reservoir.
-In such cases, the reservoir is then brutally emptied to prevent the dam infrastructure to collapse 
-under the forces exerced by the water, thus flooding the downstream areas, 
-at great cost for the population living there. 
+In such cases, the reservoir is then brutally emptied to prevent the dam infrastructure to collapse
+under the weight of the water, thus flooding the downstream areas
+at great cost for the population.
 
-% Illustartion of impact of forecast accuracy.
-Highly accurate river discharge forecast enable dam operators 
-to keep reservoirs high to maximize energy production 
+% In the absence of accurate forecast, reservoir zoning is used.
+In the absence of reliable discharge forecast,
+reservoir zoning operation strategies are often employed.
+Reservoir zoning, as illustrated in Figure 1,
+consists in allocating different purposes to different layers of the reservoir.
+The xxx layer defines a lower bound on water level under which the water accumulated without release.
+The xx layer is xxx.
+TODO
+
+% Illustration of the impact of forecast accuracy.
+Beyond reservoir zoning operation, accurate river discharge forecasts would enable dam operators
+to keep reservoirs high beyond the safety threshold of the lower xxx zone,
+in order to maximize energy production
 while ensuring dam failures do not occur.
-In contrast, inaccurate river discharge forecast force dam operators 
-to keep lower water levels in the reservoir to avoid dam failures in case of unexpected sudden inflows,
-resulting in inefficient power generation policies.
+In contrast, inaccurate river discharge forecast would force dam operators
+to keep water levels below the safety threshold of the
+in the reservoir in order to avoid dam failures in case of unexpected sudden inflows,
+resulting in less efficient power generation policies.
+The dam power generation efficiency is thus inherently limited by the accuracy of the input river discharge.
 
 % Nature of uncertainty
-Two main factors are responsible for the uncertainty in river discharge forecast,
-Atmospheric forecast, and hydrological modeling.
-
-% Our analysis quantifies the impact of each factor independantly
-% 
-% Ok
-% 
-% Ok
-%  
-
-% Summary of contributions
-Summary of contributions: 
-
-
-
+There are two main sources of errors in river discharge forecast:
+uncertainty in the atmospheric forecast and uncertainty in the hydrological modeling.
+In this paper, we quantify each the impact of each of these errors
+on the dam reservoirs's input discharge accuracy
+and on the power generation policy's efficiency.
+Our analysis will lead us to answer questions such as follows:
 
 \begin{itemize}
-	\item Data operational
-	\item Operational models for reservoir input flow
-	\item Methodolody: Vertical integration.
-	\item Open-source everything with easy-to-use tutorials for researchers to join.
+  \item What is the relationship between river discharge forecast accuracy and dam operation efficiency?
+	\item Are existing atmospheric forecast and hydrological models accurate enough to
+	safely enable the deployment of policies maximizing hydro
+	power generation beyond fixed reservoir zoning operations?
+	Which existing models are most accurate?
+	\item Is atmospheric forecast uncertainty more impactful
+	than hydrological uncertainty on the inflow river discharge accuracy?
+	Improvement on which of these models would be most beneficial to dam operation?
+	%\item What is the impact of the accuracy of the atmospheric forecast versus the hydrological modeling?
+	\item What is the impact of factors such as snow melt, latitude, seasonality, etc.,
+	on discharge forecast accuracy and operation efficiency?
+\end{itemize}
+
+% Summary of contributions
+In addition to the above questions, this paper provides the following contributions:
+
+\begin{itemize}
+	\item A dataset of historical hourly input river discharge as well and
+	atmospheric variables (both forecasted and reanalyzed) projected onto their
+	respective drainage area for xxx Japanese public dam over,
+	and a methodology to benchmark predictive models.
+	\item Near real-time operational reservoir input discharge forecasting for
+	each of these dams.
+	\item Open-source project, with tutorial to help data anlysts and modelist join our effort efficiently.
 \end{itemize}
 
 % Notes on limitations
-Limitations
+Our work, in its current form, suffer important limitations.
+These limitations are discussed at length in Section XXX,
+but the most notable ones deserve a mention at this point in the discussion:
 
 \begin{itemize}
-	\item No multi-purpose
-	\item No multi-dam
+	\item Our proposed dam operation policies are not operational:
+	we only consider a unique objective (i.e. energy production vs. flood prevention),
+	while most dams serve several purpose, which impacts their operation policies.
+	This is an important limitation which deserves nuanced discussion,
+	which we provide in Section XXX.
+	\item We do not consider multi-dam operation settings.
+	Several Japanese public dams are located downstream of other dams,
+	so the upstream dam operation affects the river input discharge of the downstream dam,
+	and the operation of both dams need some synchronization for optimal operation.
+	This is a well-studied setting \cite{} which, for the sake of simplicity,
+	we do not consider in our analysis.
+	\item
 \end{itemize}
 
 % Positive note
-Nevertheless, we hope it's useful, and can serve to build more onto.
+Nevertheless, and despite these limitations,
+we believe our analysis brings insightful contributions
+and invite interested reader to follow along.
 
 \section{Related Work}
 \label{sec:Related Work}
@@ -225,11 +266,22 @@ What else?
 \section{Methodolody}
 \label{sec:Methodolody}
 
+This sections ...
+
 \subsection{Overview}
 \label{sec:Overview}
 
 % What else
-What else
+Figure 1 ...
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.5\linewidth]{Figures/Overview1} %height=3\baselineskip
+  \caption[First figure]{Illustration of the proposed approach}
+\end{figure}
+
+
 
 \subsection{Meteorological model}
 \label{sec:Meteorological model}
@@ -240,17 +292,17 @@ The meteorological model provides atmospheric variables.
 \subsection{Hydrological Model}
 \label{Hydrological Model}
 
-The hydro model output river discharge incoming to the dam reservoir 
-from the atmospheric variables, either observed or forecasted. 
+The hydro model output river discharge incoming to the dam reservoir
+from the atmospheric variables, either observed or forecasted.
 
 \subsection{Dam Model}
 \label{Dam Model}
 
-Reservoir geometry: We infer the maximum volume from the observations. 
-We infer the maximum height from Wikipedia. We then implemented both trapezoid and truncated cone geometry for the dam reservoir. 
+Reservoir geometry: We infer the maximum volume from the observations.
+We infer the maximum height from Wikipedia. We then implemented both trapezoid and truncated cone geometry for the dam reservoir.
 
-Operation: We define two doors, one big door that does not produce energy. 
-The dimension of the door is inferred from data (= to the max observed outflow release). 
+Operation: We define two doors, one big door that does not produce energy.
+The dimension of the door is inferred from data (= to the max observed outflow release).
 One small door that produces electricity (heuristic size = 1/50th of the big door).
 
 
@@ -265,19 +317,19 @@ $$ r = r_p(P, t) + r_n(t)$$
 The positive reward quantifies the benefit of energy produced.
 Currently, we use $r_p(P, t)=P$, considering constant value over time of the generated power.
 However, hydro's value lies in its non-intermittence to supplement intermittent sources.
-Integrating the fluctuations of intermitent sources and their impact on the value of hydro power generation 
+Integrating the fluctuations of intermitent sources and their impact on the value of hydro power generation
 at different seasons and time of the day may prove interesting for future research.
 
 The negative reward quantifies the cost of a dam failure.
 We set this cost to be constant $r_n(t)=C$ per dam,
 as the maximum positive reward that can be produced by this dam over the whole period of operation,
-so that the negative impact of a single dam failure over the whole period of activity 
+so that the negative impact of a single dam failure over the whole period of activity
 would outweight the benefits of full power production of the whole dam operation.
 
 \subsection{Dam Operation Model}
 \label{sec: Dam Operation Model}
 
-Every hour, the dam operator can either open the big door, the small door or do nothing for one hour: 
+Every hour, the dam operator can either open the big door, the small door or do nothing for one hour:
 Action space $ \mathcal{A} = \{a1, a2, a3 \}$
 
 Decisions are made based on the current level of the reservoir as well as the future input discharge forecast for a given horizon.
@@ -376,7 +428,7 @@ Use different data source.
 	\item No multi-dam
  	\item No explicit evaporation modeling
 	\item Heuristic dimensioning.
-	\item No river and snow gauge.  
+	\item No river and snow gauge.
 \end{itemize}
 
 \section{Conclusion}
@@ -386,31 +438,5 @@ Conclusion
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
-
-
-%%% Uncomment this section and comment out the \bibliography{references} line above to use inline references.
-% \begin{thebibliography}{1}
-
-% 	\bibitem{kour2014real}
-% 	George Kour and Raid Saabne.
-% 	\newblock Real-time segmentation of on-line handwritten arabic script.
-% 	\newblock In {\em Frontiers in Handwriting Recognition (ICFHR), 2014 14th
-% 			International Conference on}, pages 417--422. IEEE, 2014.
-
-% 	\bibitem{kour2014fast}
-% 	George Kour and Raid Saabne.
-% 	\newblock Fast classification of handwritten on-line arabic characters.
-% 	\newblock In {\em Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
-% 			International Conference of}, pages 312--318. IEEE, 2014.
-
-% 	\bibitem{hadash2018estimate}
-% 	Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
-% 	Jacovi.
-% 	\newblock Estimate and replace: A novel approach to integrating deep neural
-% 	networks with existing applications.
-% 	\newblock {\em arXiv preprint arXiv:1804.09028}, 2018.
-
-% \end{thebibliography}
-
 
 \end{document}
